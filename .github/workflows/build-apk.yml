@@ -37,14 +37,11 @@ jobs:
           printf '{\n  "jdkPath": "%s",\n  "androidSdkPath": "%s"\n}\n' "$JAVA_HOME" "$ANDROID_HOME" > ~/.bubblewrap/config.json
           cat ~/.bubblewrap/config.json
 
-      - name: 用 Bubblewrap 生成安卓项目
-        run: bubblewrap init --manifest twa-manifest.json
-
       - name: 用 Bubblewrap 打包
         env:
           BUBBLEWRAP_KEYSTORE_PASSWORD: android123
           BUBBLEWRAP_KEY_PASSWORD: android123
-        run: bubblewrap build
+        run: printf 'y\n' | bubblewrap build
 
       - name: 上传 APK 和 AAB 成品
         uses: actions/upload-artifact@v4
