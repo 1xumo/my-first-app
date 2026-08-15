@@ -37,6 +37,9 @@ jobs:
           printf '{\n  "jdkPath": "%s",\n  "androidSdkPath": "%s"\n}\n' "$JAVA_HOME" "$ANDROID_HOME" > ~/.bubblewrap/config.json
           cat ~/.bubblewrap/config.json
 
+      - name: 用 Bubblewrap 生成安卓项目
+        run: bubblewrap init --manifest twa-manifest.json
+
       - name: 用 Bubblewrap 打包
         env:
           BUBBLEWRAP_KEYSTORE_PASSWORD: android123
