@@ -23,7 +23,7 @@
     "alias": "android"
   },
   "appVersionCode": 1,
-  "appVersion": "1.0.0",
+  "appVersion": "1",
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://1xumo.github.io/my-first-app/manifest.json",
