@@ -28,6 +28,11 @@ jobs:
             -storepass android123 -keypass android123 \
             -dname "CN=Android,OU=Android,O=Android,L=Android,ST=Android,C=US"
 
+      - name: 输出签名指纹（用于安全验证）
+        run: |
+          echo "===== SHA256 指纹（下面这行冒号分隔的十六进制）====="
+          keytool -list -v -keystore android.keystore -alias android -storepass android123 | grep -i "SHA256:"
+
       - name: 安装 Bubblewrap
         run: npm install -g @bubblewrap/cli
 
@@ -43,11 +48,12 @@ jobs:
           BUBBLEWRAP_KEY_PASSWORD: android123
         run: printf 'y\n' | bubblewrap build
 
-      - name: 上传 APK 和 AAB 成品
+      - name: 上传 APK、AAB 和签名文件
         uses: actions/upload-artifact@v4
         with:
           name: 待办清单-安装包
           path: |
             app-release-signed.apk
             app-release-bundle.aab
+            android.keystore
           if-no-files-found: error
