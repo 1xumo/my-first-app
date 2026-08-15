@@ -19,18 +19,9 @@ jobs:
       - name: 安装 Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: 生成签名密钥
+      - name: 检查固定签名文件
         run: |
-          keytool -genkeypair -v \
-            -keystore android.keystore \
-            -alias android \
-            -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass android123 -keypass android123 \
-            -dname "CN=Android,OU=Android,O=Android,L=Android,ST=Android,C=US"
-
-      - name: 输出签名指纹（用于安全验证）
-        run: |
-          echo "===== SHA256 指纹（下面这行冒号分隔的十六进制）====="
+          echo "使用仓库里固定的签名文件 android.keystore"
           keytool -list -v -keystore android.keystore -alias android -storepass android123 | grep -i "SHA256:"
 
       - name: 安装 Bubblewrap
